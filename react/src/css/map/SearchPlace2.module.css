@@ -1,0 +1,185 @@
+.main_inner {
+  max-width: 1400px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 50px 0 100px 0;
+}
+
+/* 상단 하단 각각 묶음 */
+.box {
+  display: flex;
+  justify-content: space-between;
+  width: 1400px;
+  height: 100%;
+  padding: 10px 0;
+}
+
+/* 검색창 */
+.searchBox {
+  float: right;
+  margin-right: 10px;
+}
+
+.search {
+  display: flex;
+  /*margin: 0 auto;
+   align-items: center;
+  justify-content: center; */
+}
+
+.search input {
+  border-radius: 0;
+  height: 40px;
+  width: 450px;
+  text-align: center;
+}
+
+.btn_search {
+  background-color: transparent;
+  position: relative;
+  margin-right: 5px;
+}
+
+/* <mapTable_row.js> map:지도, list:장소목록리스트 ----------------------------- */
+.map {
+  width: 890px;
+  height: 600px;
+}
+
+/* 지도 검색결과 목록 출력 */
+.listAll {
+  width: 500px;
+  height: 600px;
+  border: 1px solid rgb(153, 153, 153);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-bottom: 10px;
+}
+
+.listAll::-webkit-scrollbar {
+  width: 10px;
+  backdrop-filter: blur(60px);
+}
+.listAll::-webkit-scrollbar-thumb {
+  background-color: gray;
+}
+
+.listGroup {
+  min-height: 550px;
+  padding-bottom: 20px;
+}
+
+.list {
+  width: 490px;
+  height: 100%;
+  border-bottom: 1px solid lightgray;
+}
+
+.listItem {
+  display: flex;
+}
+
+.listItem > div:nth-child(1) {
+  width: 40px;
+  text-align: center;
+  font-size: 20px;
+  border-right: 1px solid lightgray;
+  line-height: 70px;
+}
+
+.listItem .data {
+  padding: 10px;
+  width: 450px;
+}
+
+.listItem .data div:nth-child(2) {
+  display: flex;
+}
+
+/* <MapDetailRow.js> 지도에서 클릭한 해당 장소 ------------------------------------ */
+.place {
+  width: 320px;
+  height: 100%;
+  border: 1px solid rgb(153, 153, 153);
+}
+
+.place button {
+  background-color: transparent;
+}
+
+.group {
+  width: 300px;
+  min-height: 330px;
+  padding: 0 10px;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.address,
+.time,
+.review {
+  font-size: 12px;
+  color: rgb(158, 158, 158);
+}
+
+/* <mapDistance.js> 거리 (자동차, 지하철, 버스) -------------------------------- */
+.trans {
+  width: 1050px;
+  height: 100%;
+}
+
+.go {
+  padding: 10px 5px;
+  width: 100%;
+}
+.go > h4 > span {
+  color: gray;
+  font-size: 18px;
+}
+
+/* 가는 방법 (자동차, 지하철, 버스) */
+.item {
+  height: 330px;
+  width: 340px;
+  border: 1px solid rgb(153, 153, 153);
+  margin: 0 auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.item::-webkit-scrollbar {
+  width: 10px;
+  backdrop-filter: blur(60px);
+}
+.item::-webkit-scrollbar-thumb {
+  background-color: gray;
+}
+
+.how {
+  display: flex;
+  line-height: 50px;
+  justify-content: center;
+  padding: 5px 0;
+}
+
+.how > span {
+  font-weight: bold;
+  font-size: 28px;
+}
+
+.try {
+  padding: 20px 10px 10px;
+  font-size: 20px;
+}
+
+.subway {
+  border-bottom: 1px solid lightgray;
+}
+
+.bus {
+  border-bottom: 1px solid lightgray;
+  line-height: 12px;
+}

@@ -1,0 +1,11 @@
+.reviewAll {
+  max-width: 1400px;
+  margin: auto;
+}
+
+.reviewB {
+  /* display: flex; */
+  justify-content: flex-end;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}

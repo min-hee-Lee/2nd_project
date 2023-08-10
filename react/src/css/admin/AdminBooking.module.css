@@ -1,0 +1,8 @@
+.main_inner {
+  max-width: 1400px;
+  min-height: 940px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 50px 0px;
+  text-align: Center;
+}

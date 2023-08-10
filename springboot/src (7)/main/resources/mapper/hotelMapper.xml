@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="hotel">
+	<!-- 전체 호텔 리스트 resultMap -->
+	<resultMap id="hotelBannerResultMap" type="testBoard.board.dto.Hotel_Banner_InfoDTO">
+        <result property="hotel_code" column="hotel_code"/>
+        <result property="name" column="name"/>
+        <result property="price" column="price"/>
+        <result property="type" column="type"/>
+        <result property="address" column="address"/>
+        <result property="filename" column="filename"/>
+        <result property="filepath" column="filepath"/>
+        <result property="rating_avg" column="rating_avg"/>
+        <result property="rating_cnt" column="rating_cnt"/>
+        
+	    
+    </resultMap>
+
+	<!-- 전체 호텔 리스트 출력 -->
+	<select id="hotelListAll" resultMap="hotelBannerResultMap">
+		SELECT h.hotel_code, h.name, h.type, h.address, h.price, 
+			   c.filename, c.filepath,
+			   d.rating_avg, d.rating_cnt
+		FROM hotel_banner_info h
+		JOIN hotel_main_images c ON h.hotel_code = c.hotel_code
+		JOIN rating d ON h.hotel_code = d.hotel_code
+		ORDER BY rating_avg desc
+	</select>
+	
+	
+<!-- 검색, 필터링, 정렬 모두 추가 리스트 -->
+  <select id="searchHotelList" parameterType="testBoard.board.dto.SearchDTO" resultMap="hotelBannerResultMap">
+      SELECT DISTINCT h.hotel_code, h.name, h.type, h.address, h.price, c.filename, c.filepath, d.rating_avg, d.rating_cnt
+      FROM hotel_banner_info h
+      JOIN room_banner_info r ON h.hotel_code = r.hotel_code
+      JOIN hotel_main_images c ON h.hotel_code = c.hotel_code
+      JOIN rating d ON h.hotel_code = d.hotel_code
+      JOIN hotel_detail_address e ON h.hotel_code = e.hotel_code
+      JOIN hotel_detail_con i ON h.hotel_code = i.hotel_code
+      WHERE NOT EXISTS (SELECT 1 FROM booking b
+                        WHERE b.room_code = r.room_code AND
+                        ((b.checkin &lt;= #{checkin} AND b.checkout > #{checkin}) OR
+                        (b.checkin >= #{checkin} AND b.checkout &lt; #{checkout}) OR
+                        (b.checkin &lt; #{checkout} AND b.checkout >= #{checkout})))
+      <if test="location != null and location != ''">
+          AND e.hotel_detail_address LIKE '%${location}%'
+      </if>
+      <if test="type != null">
+           AND (
+          <foreach item="item" index="index" collection="type" separator=" OR ">
+               h.type LIKE '%${item}%'
+          </foreach>
+           )
+      </if>
+      <if test="bedType != null">
+           AND (
+          <foreach item="item" index="index" collection="bedType" separator=" OR ">
+               r.room_bed LIKE '%${item}%'
+          </foreach>
+           )
+      </if>
+      <if test="filter != null and filter.size() > 0 and !filter.contains('service')">
+        AND (
+          <foreach item="item" index="index" collection="filter" separator=" OR ">
+            <if test="item == 'clean'">
+              (i.hotel_detail_con LIKE '%금연%' OR i.hotel_detail_con LIKE '%욕실용품%' OR i.hotel_detail_con LIKE '%객실샤워실%')
+            </if>
+            <if test="item == 'facility'">
+              (i.hotel_detail_con LIKE '%사우나%' OR i.hotel_detail_con LIKE '%수영장%' OR i.hotel_detail_con LIKE '%피트니스%')
+            </if>
+            <if test="item == 'pet'">
+              (i.hotel_detail_con LIKE '%반려견%')
+            </if>
+            <if test="item == 'disabled'">
+              (i.hotel_detail_con LIKE '%장애인%')
+            </if>
+          </foreach>
+        )
+      </if>
+      <if test="filter != null and filter.contains('service')">
+          ORDER BY d.rating_avg desc, d.rating_cnt desc
+      </if>
+      <if test="filter == null or (filter != null and !filter.contains('service'))">
+          ORDER BY d.rating_avg desc
+      </if>
+   </select>
+ 
+	
+	
+	<!-- 선택한 호텔 상단 정보 resultMap -->
+	<resultMap id="subInfoResultMap" type="testBoard.board.dto.Hotel_Sub_InfoDTO">
+		<id property="hotel_code" column="hotel_code"/>
+	    <result property="name" column="name"/>
+	    <result property="type" column="type"/>
+	    <result property="hotel_detail_address" column="hotel_detail_address"/>
+	    <result property="rating_avg" column="rating_avg"/>
+	    <collection property="imageDTO" ofType="testBoard.board.dto.ImageDTO">
+	        <result property="filename" column="filename"/>
+	        <result property="filepath" column="filepath"/>
+	    </collection>
+	</resultMap>
+	
+	<!-- 선택한 호텔 상단 정보 출력 -->
+	<select id="hotelSubInfo" parameterType="int" resultMap="subInfoResultMap">
+		SELECT h.hotel_code, h.name, h.type, 
+			   b.hotel_detail_address, 
+			   c.filename, c.filepath, 
+			   d.rating_avg
+		FROM hotel_banner_info h
+		JOIN hotel_detail_address b ON h.hotel_code = b.hotel_code
+		JOIN hotel_sub_images c ON h.hotel_code = c.hotel_code
+		JOIN rating d ON h.hotel_code = d.hotel_code
+		WHERE h.hotel_code = #{hotel_code}
+	</select>
+	
+	<!-- 선택한 호텔 객실 리스트 resultMap -->
+	<resultMap id="roomListResultMap" type="testBoard.board.dto.Room_Banner_InfoDTO">
+		<id property="room_code" column="room_code"/>
+		<result property="hotel_code" column="hotel_code"/>
+	    <result property="room_name" column="room_name"/>
+	    <result property="room_price" column="room_price"/>
+	    <result property="room_member" column="room_member"/>
+	    <result property="room_width" column="room_width"/>
+	    <result property="room_bed" column="room_bed"/>
+	   
+	    <collection property="imageDTO" ofType="testBoard.board.dto.ImageDTO">
+	        <result property="filename" column="filename"/>
+	        <result property="filepath" column="filepath"/>
+	    </collection>
+	</resultMap>
+	
+	<!-- 선택한 호텔 객실 리스트 출력 (체크인, 체크아웃 날짜로 다시 검색) -->
+	<select id="roomList" parameterType="testBoard.board.dto.SearchDTO" resultMap="roomListResultMap">
+		<![CDATA[
+		SELECT r.hotel_code, r.room_code, r.room_name, r.room_price, r.room_member, r.room_width, r.room_bed, 
+			   b.filename, b.filepath
+		FROM room_banner_info r
+		JOIN room_main_images b ON r.room_code = b.room_code
+		WHERE r.hotel_code = #{hotel_code} AND
+		NOT EXISTS (SELECT 1 FROM booking b
+		                  WHERE b.room_code = r.room_code AND
+		                        ((b.checkin <= #{checkin} AND b.checkout > #{checkin}) OR
+		                        (b.checkin >= #{checkin} AND b.checkout < #{checkout}) OR
+		                        (b.checkin < #{checkout} AND b.checkout >= #{checkout})))
+		ORDER BY room_code
+		]]>
+		
+	</select>
+	
+	<resultMap id="hotelDatailMap" type ="testBoard.board.dto.Hotel_Detail_ConDTO">
+		<id property="hotel_code" column="hotel_code"/>
+		<result property="hotel_detail_con" column="hotel_detail_con"/>
+							 
+		<collection property="hotel_detail_InfoDTO" ofType="testBoard.board.dto.Hotel_Detail_InfoDTO">
+			<result property="info" column="info" />
+			<result property="detail_info" column="detail_info"/>
+		</collection>
+	</resultMap>
+	
+	<select id = "hotel_detail_info" parameterType="int" resultMap="hotelDatailMap">
+	
+		 SELECT * FROM hotel_detail_con a
+   		 JOIN hotel_detail_info b ON a.hotel_code = b.hotel_code
+   		 WHERE a.hotel_code = #{hotel_code}
+	
+	</select>
+	
+	
+	<!-- 리뷰 리스트 resultMap -->
+	<resultMap id="ReviewList" type="testBoard.board.dto.Hotel_ReviewDTO">
+	    <result property="review_code" column="review_code" />
+	    <result property="booking_code" column="booking_code" />
+	    <result property="content" column="content" />
+	    <result property="rating_value" column="rating_value" />
+	    <result property="regdate" column="regdate" />
+	    <result property="moddate" column="moddate" />
+	    <result property="mem_name" column="mem_name" />
+	    <result property="room_name" column="room_name" />
+	    <result property="business_comment" column="business_comment" />
+	    <collection property="imageDTO" ofType="testBoard.board.dto.ImageDTO">
+	     <result property="filename" column="filename" />
+    	 <result property="filepath" column="filepath" />
+	    </collection>
+	</resultMap>
+	
+	
+	<!-- 선택된 호텔의 전체 리뷰 -->
+	<select id="getReviewsByHotel" parameterType="int" resultMap="ReviewList">
+		SELECT r.*, c.mem_name, d.room_name, e.filepath, e.filename
+		FROM review r
+		JOIN booking b ON b.booking_code = r.booking_code
+		JOIN customer c ON b.mem_code = c.mem_code
+		JOIN room_banner_info d ON b.room_code = d.room_code
+		LEFT JOIN review_images e ON r.review_code = e.review_code
+		WHERE b.hotel_code = #{hotel_code}
+		ORDER BY r.regdate DESC
+	</select>
+	
+	
+	<insert id="insertReview" parameterType="testBoard.board.dto.Hotel_ReviewDTO">
+		<selectKey keyProperty="review_code" resultType="java.lang.Integer" order="AFTER">
+        	SELECT review_code_seq.currval FROM DUAL
+    	</selectKey>	
+		INSERT INTO review (review_code, booking_code, content, rating_value, regdate, moddate)
+      	VALUES (review_code_seq.nextval, #{booking_code}, #{content, jdbcType=VARCHAR}, #{rating_value}, sysdate, sysdate)
+		<!-- RETURNING review_code INTO #{review_code} -->
+		
+	</insert>
+	
+	
+	<insert id="insertReviewImage" parameterType="testBoard.board.dto.ImageDTO">
+        INSERT INTO review_images
+        VALUES (#{review_code}, #{filename}, #{filepath})
+    </insert>
+	
+	
+	<update id="updateReview" parameterType="testBoard.board.dto.Hotel_ReviewDTO">
+		UPDATE review
+		SET content = #{content, jdbcType=VARCHAR}, rating_value = #{rating_value}, moddate = sysdate
+		WHERE review_code = #{review_code}
+	</update>
+	
+	
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM review
+		WHERE review_code = #{review_code}
+	</delete>
+	
+	<delete id="deleteReviewImage" parameterType="int">
+      DELETE FROM review_images
+      WHERE review_code = #{review_code}
+   </delete>
+	
+	
+	<select id="getAvgRating" parameterType="int" resultType="double">
+		SELECT round(avg(rating_value),2)
+		FROM review
+		WHERE booking_code in (SELECT booking_code FROM booking WHERE hotel_code = #{hotel_code})
+	</select>
+	
+	
+	<select id="getCntRating" parameterType="int" resultType="int">
+		SELECT count(*)
+		FROM review
+		WHERE booking_code in (SELECT booking_code FROM booking WHERE hotel_code = #{hotel_code})
+	</select>
+	
+	
+	<update id="updateRating" parameterType="testBoard.board.dto.Hotel_RatingDTO">
+		UPDATE rating
+		SET rating_avg = #{rating_avg}, rating_cnt = #{rating_cnt}
+		WHERE hotel_code = #{hotel_code}
+	</update>
+	
+	
+	<update id="insertBusinessComment" parameterType="testBoard.board.dto.Hotel_ReviewDTO">
+      UPDATE review 
+      SET business_comment = #{business_comment}
+      WHERE review_code = #{review_code, jdbcType=INTEGER}
+   </update>
+	
+	
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	
+	<!-- 사용자 my page -->
+	<resultMap id="myPageMap" type="testBoard.board.dto.CheckDTO">
+		
+	    <id property="booking_code" column="booking_code" />
+	    <result property="checkin" column="checkin" />
+	    <result property="checkout" column="checkout" />
+	    <result property="regdate" column="regdate" />
+	    <result property="hotel_detail_address" column="hotel_detail_address" />
+	    <result property="name" column="name" />
+	    <result property="room_price" column="room_price" />
+	    <result property="room_member" column="room_member" />
+	    <result property="room_name" column="room_name" />
+	    <result property="filename" column="filename" />
+    	<result property="filepath" column="filepath" />
+	   
+	</resultMap>
+	
+	<select id="myPage" parameterType="int" resultMap="myPageMap">
+		SELECT a.booking_code, a.checkin, a.checkout, a.regdate, b.hotel_detail_address
+		,c.name, d.room_member,d.room_price, d.room_name, e.filepath, e.filename
+		FROM booking a 
+		JOIN hotel_detail_address b ON a.hotel_code= b.hotel_code
+		JOIN hotel_banner_info c ON a.hotel_code = c.hotel_code
+		JOIN room_banner_info d ON a.room_code = d.room_code
+		JOIN hotel_main_images e ON a.hotel_code = e.hotel_code
+		WHERE a.mem_code = #{mem_code} and a.status != 3 
+		ORDER BY a.booking_code DESC
+	</select>
+	
+	<!-- 사용자 pay Page -->
+	<resultMap id="PayPageMap" type="testBoard.board.dto.PayPageDTO">
+		
+	    <result property="room_name" column="room_name" />
+	    <result property="room_code" column="room_code" />
+	    <result property="name" column="name" />
+	    <result property="hotel_code" column="hotel_code" />
+	    <result property="room_price" column="room_price" />
+	    <result property="filepath" column="filepath" />
+	    <result property="filename" column="filename" />
+	   
+	</resultMap>
+	
+	
+	<select id = "payPage" parameterType="testBoard.board.dto.PayCheckDTO" resultMap="PayPageMap">
+	<![CDATA[
+		SELECT a.room_name, a.room_price,a.room_code, b.name, b.hotel_code,
+		c.filepath, c.filename
+		FROM room_banner_info a
+		JOIN hotel_banner_info b ON a.hotel_code = b.hotel_code
+		JOIN hotel_main_images c ON a.hotel_code = c.hotel_code
+		WHERE a.hotel_code =#{hotel_code} and a.room_code = #{room_code}
+	]]> 
+		
+		
+	</select>
+	
+	<insert id ="booking" parameterType="testBoard.board.dto.BookingDTO">
+		<selectKey keyProperty="booking_code" resultType="java.lang.Integer" order="AFTER">
+        	SELECT booking_code_seq.currval FROM DUAL
+    	</selectKey>	
+		INSERT INTO booking
+	
+		VALUES(
+			booking_code_seq.nextval,
+			#{mem_code},
+			#{hotel_code},
+			#{room_code},
+			#{guests},
+			#{checkin},
+			#{checkout},
+			#{status},
+			sysdate,
+			#{canceldate, jdbcType=VARCHAR}
+			
+			
+		)
+	
+	</insert>
+	
+	<update id = "bookingcancel" parameterType="int">
+		UPDATE booking 
+		SET status = 3, canceldate=sysdate
+		WHERE booking_code = #{booking_code}
+	</update>
+
+	
+	<resultMap id="indexMap" type="testBoard.board.dto.IndexBannerDTO" >
+		 <result property="hotel_code" column="hotel_code" />
+	     <result property="neme" column="neme" />
+	     <result property="address" column="address" />
+	     <result property="filename" column="filename" />
+	     <result property="filepath" column="filepath" />
+	     <result property="rating_avg" column="rating_avg" />
+	
+	</resultMap>
+	
+	<select id="indexBanner" resultMap="indexMap">
+		<![CDATA[
+		SELECT A.*, rownum AS rn
+		FROM  (SELECT  a.name, a.hotel_code,a.address, b.filename , b.filepath, c.rating_avg
+		FROM hotel_banner_info a 
+		JOIN hotel_main_images b ON a.hotel_code = b.hotel_code
+		JOIN rating c ON a.hotel_code = c.hotel_code ORDER BY rating_avg DESC ) A
+		WHERE ROWNUM <= 10
+		]]>
+	
+	</select>
+	
+	<insert id="kakaoCancel" parameterType="testBoard.payment.dto.KakaoPayCancelDTO">
+		INSERT INTO kakaopay
+		VALUES(
+			#{booking_code},
+			#{cid},
+			#{tid},
+			#{cancel_amount},
+			#{cancel_tax_free_amount},
+			#{cancel_vat_amount},
+			sysdate
+			
+		)
+	</insert>
+	
+	<select id ="kakaoPaySelect" parameterType="int" resultType="testBoard.payment.dto.KakaoPayCancelDTO">
+		SELECT * FROM kakaopay 
+		WHERE booking_code = #{booking_code}
+		
+	</select>
+	
+	<select id = "indexBoard" resultType="testBoard.free.dto.BoardFreeDTO">
+	<![CDATA[
+	SELECT A.*, rownum AS rn
+		FROM(SELECT * FROM  board
+		oRDER BY board_code DESC) A
+		WHERE ROWNUM <= 5
+		]]>
+	</select>
+	
+	
+
+</mapper>
+
+
+
+

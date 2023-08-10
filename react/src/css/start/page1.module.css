@@ -1,0 +1,38 @@
+.all {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+}
+
+.page1 {
+  position: relative;
+  width: 100vw;
+  height: 100%;
+  max-width: 1900px;
+  z-index: 1;
+  margin-top: -0.35%;
+  margin-left: 0;
+}
+
+.bo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}

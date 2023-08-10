@@ -1,0 +1,59 @@
+.slick-prev:before,
+.slick-next:before {
+  color: black;
+  background-color: white;
+  border-color: black;
+}
+
+.slick-list {
+  width: 480px;
+}
+
+/* 
+.slick-slide.start {
+  background-color: #ffa771;
+}
+
+.slick-slide.end {
+  background-color: #ffa771;
+} */
+
+.slick-slide:hover {
+  font-weight: bold;
+}
+
+.timeTable {
+  padding: 20px 0;
+  width: 490px;
+  margin: auto;
+}
+
+.timeBtn {
+  width: 62px !important;
+  height: 50px;
+  padding: 1px;
+  border: 1px solid #999;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-align: center;
+  line-height: 48px;
+}
+
+.btnColor {
+  background-color: lightgray;
+}
+
+.btnCheckColor {
+  font-size: 10px;
+  color: red;
+}
+
+.timeText {
+  padding: 5px 0;
+  text-align: left !important;
+}
+
+/* 달력간격 */
+.react-calendar__tile {
+  padding: 10px 3px;
+}

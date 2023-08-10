@@ -1,0 +1,62 @@
+.All {
+  display: flex;
+  flex-direction: column;
+}
+.reBtn {
+  margin-left: auto; /*오른쪽 정렬*/
+  margin-bottom: 20px;
+  margin-right: 5px;
+}
+
+.reviewMain {
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 10px;
+  float: right;
+  margin-bottom: 30px;
+  display: block;
+}
+
+.rBox {
+  display: flex;
+  flex-direction: column;
+}
+.rBoxTop {
+  margin: 20px;
+}
+.rInput {
+  width: 200px;
+  margin-left: 15px;
+  margin-bottom: 20px;
+}
+.rText {
+  margin-left: 50px;
+}
+.imgD {
+  display: flex;
+}
+
+.imgD {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 20px;
+}
+
+.Dimg {
+  margin-top: 20px;
+}
+
+.rFile {
+  margin-left: 70px;
+  margin-right: 889px;
+}
+
+.DImgBox {
+  margin-left: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.DBtn {
+  margin-top: 20px;
+}

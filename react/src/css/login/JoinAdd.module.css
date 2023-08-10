@@ -1,0 +1,51 @@
+.signup {
+  border: 3px solid lightgray;
+  border-radius: 40px;
+  width: 800px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px 40px;
+}
+
+.signup form {
+  width: 750px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.form_group {
+  padding: 10px 0 10px 60px;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  /* space-between으로 설정하면,
+  form_group 클래스 내부의 input과 .check 클래스 내부의 button이 서로 다른 방향에서 정렬 */
+}
+
+.form_group input {
+  width: 500px;
+  height: 40px;
+  padding-left: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-right: 15px;
+}
+
+.check {
+  width: 120px;
+  height: 40px;
+  background-color: lightgray;
+  border-radius: 15px;
+  font-size: 14px;
+  padding: 5px;
+  line-height: 35px;
+}
+
+.form_btn {
+  padding-top: 20px;
+  padding-right: 35px;
+}
+
+.error {
+  color: red;
+}

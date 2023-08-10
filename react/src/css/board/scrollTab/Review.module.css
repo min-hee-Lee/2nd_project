@@ -1,0 +1,83 @@
+.list {
+  width: 100%;
+  min-height: 500px;
+}
+
+.star {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.star > p {
+  line-height: 90px;
+}
+
+.star > img {
+  width: 80px;
+  height: 80px;
+}
+
+/* 총 후기 -------------------------------------------------------------------  */
+.count {
+  height: 50px;
+  width: 1400px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.area {
+  max-width: 1400px;
+  display: block;
+  margin: 0 auto;
+}
+
+.rt {
+  width: 1400px;
+  height: 300px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 수직 중앙 정렬 */
+}
+
+.star {
+  color: rgb(0, 0, 0);
+  font-size: 60px;
+  margin-right: 4%;
+}
+
+.total {
+  width: 450px;
+  height: 180px;
+  background-color: rgb(225, 225, 225);
+  color: rgb(90, 90, 90);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center; /* 수평 */
+  align-items: center; /* 수직 */
+}
+
+.totalp {
+  margin: auto;
+  text-align: center; /*text 중앙 정렬*/
+  font-size: 24px;
+  font-weight: bold;
+  margin: 5%;
+  line-height: 1.7; /*줄간*/
+}
+
+.rm {
+  margin: 0 auto;
+  width: 1400px;
+  height: 100px;
+  display: flex;
+  align-items: center; /* 버튼 수직 중앙 정렬 */
+  justify-content: flex-end; /* 버튼 수평 우측 정렬 */
+}

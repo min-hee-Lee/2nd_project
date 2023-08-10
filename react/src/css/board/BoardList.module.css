@@ -1,0 +1,68 @@
+.main_inner {
+  max-width: 1400px;
+  height: 100%;
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+
+/* 검색창----------------------------------- */
+.search {
+  display: flex;
+  padding-top: 40px;
+  align-items: center;
+  justify-content: right;
+}
+
+.search input {
+  border-radius: 0;
+  height: 40px;
+  width: 450px;
+  text-align: center;
+  margin-right: 5px;
+}
+
+.btn_search {
+  background-color: transparent;
+  position: relative;
+  margin-right: 5px;
+}
+
+.reset {
+  width: 100%;
+  padding: 10px 5px 5px;
+}
+
+/* list ----------------------------------------------- */
+.list_wrap {
+  height: 100%;
+  min-height: 1000px;
+  padding: 30px 10px 50px;
+}
+
+.list_wrap ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0px, 25%));
+  gap: 50px;
+}
+
+.group {
+  padding: 5px;
+  /* text-align: center; */
+}
+
+.name {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.address,
+.time,
+.review {
+  font-size: 12px;
+  color: rgb(158, 158, 158);
+}
+
+/* 찜 버튼 */
+.wishBtn {
+  position: relative;
+}

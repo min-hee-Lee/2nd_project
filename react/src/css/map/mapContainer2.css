@@ -1,0 +1,54 @@
+.infowindow-wrapper {
+  width: 300px;
+  height: 110px;
+}
+
+.infowindow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; /* 수정된 부분 */
+  padding: 10px;
+  max-width: 280px;
+}
+
+.infowindow-photo {
+  width: 80px;
+  height: 85px;
+  margin-right: 10px;
+}
+
+.infowindow-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.infowindow-content h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* background-color: rgba(191, 233, 208, 0.8);  배경색 */
+  padding: 5px 0; /* 제목과 테두리 사이 간격 */
+}
+
+.infowindow-content > p,
+.infowindow-content > span {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: gray;
+}
+
+/* ---------------------- */
+.dotOverlay {
+  background-color: rgba(55, 55, 55, 0.85);
+  /* box-shadow: black; */
+  color: white;
+  padding: 5px;
+}

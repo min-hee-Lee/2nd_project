@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.example.shop.chating.dao.ChatMapper">
+
+	<select id="selectMessages" parameterType="int" resultType="ChatDto">
+		<![CDATA[ 
+		
+				SELECT  rownum as sm, b.* FROM 
+				(SELECT rownum as rm , a.* FROM 
+				(SELECT * FROM t_chat WHERE roomId = #{roomId} ORDER BY created_dt DESC)
+				a ORDER BY rm DESC )
+				b WHERE rm <= 10 ORDER BY sm
+		
+		]]>
+	</select>
+	
+	<insert id="insertMessage" parameterType="ChatDto">
+		insert into t_chat (type, message, sender, created_dt, roomId)
+		values (#{type}, #{message}, #{sender}, #{createdDt},#{roomId, jdbcType=VARCHAR}) 
+	</insert>
+	
+	<select id="selectChatRoom" resultType="ChatDto">
+		<![CDATA[ 
+									
+		SELECT * FROM chat_room WHERE bigo != 2
+		]]>
+	</select>
+	
+	<insert id ="insertChatRoom" parameterType="ChatDto">
+		insert into chat_room (roomId, roomName)
+		values (chat_room_seq.nextval, #{roomName}) 
+	</insert>
+	
+	
+	<!-- main images 뿌리기(페이징처리) 채팅 전용 -->
+	<select id="Chat_main_list" parameterType="String" resultType="Chat_main_imagesDTO">
+		
+		
+		 SELECT d.* FROM
+		(SELECT rownum AS rm, c.* FROM
+		(SELECT b.main_code, b.filepath, b.filename, b.main_address, b.title, b.cost, b.time_about,
+		       round(AVG(NVL(d.rating_value,0)), 2) as avg_rating, count(d.rating_value) as count_rating,COALESCE(b.wish_count, 0) AS wish_count
+		FROM
+		(SELECT a.*
+		FROM(SELECT a.main_code, a.filepath, a.filename, 
+		b.main_address, 
+		c.title, c.cost, c.time_about, g.wish_count
+		FROM main_image a
+		JOIN main_host b ON a.main_code = b.main_code
+		JOIN (
+		SELECT * FROM
+		(SELECT a.*, ROW_NUMBER() OVER (PARTITION BY a.main_code ORDER BY a.main_code) as RN
+		FROM MAIN_SUB_PLACE a) t
+		WHERE t.RN=1) c ON a.main_code = c.main_code
+        
+        LEFT JOIN (
+                SELECT main_code, COUNT(wish_code) AS wish_count
+                FROM wishList
+                GROUP BY main_code
+            ) g ON a.main_code = g.main_code)a
+		WHERE 1=1
+	   	 <if test="filename != null and filename != ''">
+	      
+	       AND a.filename LIKE '%' || #{filename} || '%'  
+	     
+	    	</if> 
+		)b
+		LEFT JOIN (SELECT * FROM review WHERE re_step=0) d ON b.main_code = d.main_code
+		
+		GROUP BY b.main_code, b.filepath, b.filename, b.main_address, b.title, b.cost, b.time_about,b.wish_count
+		ORDER BY b.main_code)c ORDER BY rownum)d
+		WHERE d.rm BETWEEN 1 AND 15
+		
+				
+	
+		
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

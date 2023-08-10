@@ -1,0 +1,69 @@
+.reviewWriteAll {
+  /* display: flex; */
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.writebtn {
+  margin-bottom: 30px;
+  display: inline-block;
+  margin-left: auto;
+}
+
+.writeBox {
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 10px;
+  margin-bottom: 30px;
+  display: block;
+}
+
+.writeForm {
+  height: 330px;
+}
+
+.reviewStarBox {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.reviewStar {
+  height: 35px;
+  margin: 20px;
+}
+
+.reviewInputBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 1400px;
+  width: 1400px;
+  margin-bottom: 20px;
+  /* border-bottom: 1px solid rgb(200, 200, 200); */
+}
+
+.reviewInput {
+  margin: 20px;
+}
+
+.reviewfileBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-top: 1px solid rgb(200, 200, 200);
+}
+
+.reviewfile {
+  margin-left: 76px;
+  margin-right: 850px;
+  margin-top: 10px;
+}
+
+.reviewEnd {
+  margin-top: 15px;
+}
+.reviewBottom {
+  margin-bottom: 20px;
+}

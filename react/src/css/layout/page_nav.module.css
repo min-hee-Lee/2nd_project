@@ -1,0 +1,53 @@
+.pageNav li {
+  cursor: pointer;
+  line-height: 40px;
+  color: black;
+  margin: 0 5px;
+}
+
+.pageNav ul {
+  display: flex;
+  justify-content: center;
+}
+
+/* 이전으로 갈 수 없는 경우 */
+.prevNo a {
+  color: lightgray;
+}
+
+/* 이전으로 갈 수 있는 경우 */
+.prevYes a {
+  color: black;
+  font-weight: bold;
+}
+
+/* 숫자 페이지 공통 css */
+.active,
+.activeNo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+/* 현재 페이지가 아닌 페이지 hover시 표시 */
+.activeNo:hover {
+  font-weight: bold;
+}
+
+/* 현재 페이지 표시 */
+.active {
+  background-color: rgba(224, 223, 223, 0.8);
+}
+
+/* 다음으로 갈 수 없는 경우 */
+.nextNo span {
+  color: lightgray;
+}
+
+/* 다음으로 갈 수 있는 경우 */
+.nextYes span {
+  color: black;
+  font-weight: bold;
+}

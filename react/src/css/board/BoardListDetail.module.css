@@ -1,0 +1,122 @@
+.main_inner {
+  max-width: 1400px;
+  height: 100%;
+  min-height: 1500px;
+  margin: 0 auto;
+}
+
+/* ------------------------------------------------------------------ */
+.infoBox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 0 10px 0;
+}
+
+/* 왼쪽 전체 감싸고 있는 section (슬라이드) */
+.left {
+  width: 700px;
+  height: 800px;
+  padding: 10px;
+  border: 1px solid lightgray;
+  box-sizing: border-box;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* 오른쪽 전체 감싸고 있는 section (예약 정보) */
+.right {
+  width: 600px;
+  height: 800px;
+  padding: 10px;
+  /* border: 1px solid lightgray; */
+  box-sizing: border-box;
+}
+
+.right > .inner {
+  width: 100%;
+  padding: 5px 10px;
+  display: flex;
+}
+
+/* 로고, 체육관 */
+.right > .inner:nth-child(1) {
+  height: 80px;
+  align-items: center;
+}
+
+.main_name {
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 80px;
+  padding: 0 10px;
+}
+
+/* 주소 */
+.right > .inner:nth-child(2) {
+  color: gray;
+  line-height: 30px;
+}
+
+/* 좋아요, 별점, 후기 */
+.right > .inner:nth-child(3) {
+  color: gray;
+  display: flex;
+  height: 30px;
+}
+
+.right > .inner:nth-child(3) > div {
+  font-size: 15px;
+  padding: 0 5px;
+}
+
+/* 금액 */
+.right > .inner:nth-child(4) {
+  padding: 30px 10px;
+}
+.right > .inner:nth-child(4) > span:nth-child(1) {
+  font-size: 25px;
+}
+.right > .inner:nth-child(4) > span:nth-child(2) {
+  color: gray;
+  line-height: 40px;
+}
+
+/* 코멘트 */
+.right > .inner:nth-child(5) {
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  font-size: 20px;
+  color: gray;
+}
+
+/* 예약 옵션 선택 */
+.right > .inner:nth-child(6) {
+  display: block;
+  max-height: 100%;
+  padding: 30px 0 5px;
+}
+.mark {
+  display: flex;
+  border-bottom: 1px solid lightgray;
+  padding: 10px 0;
+  height: 70px;
+}
+.option > div {
+  font-size: 18px;
+}
+.option > div:nth-child(2) {
+  font-size: 12px;
+  display: flex;
+  color: gray;
+}
+
+/* 예약하기 버튼 */
+.bookingBtn {
+  display: flex;
+  justify-content: right;
+  padding-bottom: 140px;
+  padding-right: 10px;
+  margin-top: -70px;
+}

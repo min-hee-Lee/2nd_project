@@ -1,0 +1,106 @@
+.container {
+  width: 1400px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+/* 전체 묶음---------------------------------- */
+.inner {
+  width: 1400px;
+  height: 100%;
+  margin: 0 auto;
+  border: 1px solid red;
+}
+
+/* 상단 하단 각각 묶음 */
+.box {
+  display: flex;
+  justify-content: space-between;
+  width: 1400px;
+  height: 100%;
+  padding: 10px 0;
+}
+
+/* 검색창 */
+.search {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.search input {
+  height: 35px;
+  width: 350px;
+  text-align: center;
+  border-radius: 10px;
+  margin-left: 52px;
+}
+
+.btn_search {
+  background-color: transparent;
+  position: relative;
+  margin: 8px 10px 0 10px;
+}
+
+/* map:지도, list:장소목록리스트 ----------------------------- */
+.map {
+  width: 910px;
+  height: 600px;
+  border: 1px solid black;
+}
+
+/* 지도 검색결과 목록 출력 */
+.listGroup {
+  width: 480px;
+  height: 600px;
+  border: 1px solid black;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.list {
+  display: flex;
+  width: 450px;
+  height: 50px;
+}
+
+/* 지도에서 클릭한 해당 장소 ------------------------------------ */
+.place {
+  width: 320px;
+  height: 100%;
+  border: 1px solid lightgray;
+}
+
+.group {
+  width: 300px;
+  height: 300px;
+  border: 1px solid blue;
+  display: block;
+}
+
+/* 거리 (자동차, 지하철, 버스) -------------------------------- */
+.trans {
+  width: 1050px;
+  height: 100%;
+}
+
+.go {
+  padding: 10px 5px;
+  width: 100%;
+  height: 100%;
+}
+.go > p {
+  line-height: 30px;
+}
+
+/* 가는 방법 (자동차, 지하철, 버스) */
+.item {
+  height: 290px;
+  width: 340px;
+  border: 1px solid rgb(158, 158, 158);
+  margin: 0 auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

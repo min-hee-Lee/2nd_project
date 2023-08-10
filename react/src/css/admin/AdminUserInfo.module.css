@@ -1,0 +1,32 @@
+.main_inner {
+  max-width: 1400px;
+  min-height: 940px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 50px 0px;
+  text-align: Center;
+}
+
+/* 검색창 */
+.search {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.search input {
+  border-radius: 0;
+  height: 40px;
+  width: 500px;
+  text-align: center;
+  margin-left: 40px;
+}
+
+.btn_search {
+  background-color: transparent;
+  position: relative;
+  margin-left: 10px;
+}
+/* -------------------------------------- */

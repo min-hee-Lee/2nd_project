@@ -1,0 +1,27 @@
+.caution,
+.refund {
+  width: 100%;
+  height: 100%;
+  border: 3px solid lightgray;
+  border-radius: 10px;
+  /* background-color: lightgray; */
+  padding: 10px;
+}
+
+.rf {
+  padding: 5px 0;
+}
+
+.caution > span,
+.rf > span {
+  font-size: 18px;
+  color: rgb(95, 95, 95);
+}
+
+.caution > .data {
+  padding: 3px 0 0 5px;
+}
+
+.data {
+  margin-left: 5px;
+}

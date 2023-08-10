@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+
+    
+<mapper namespace="com.example.shop.payments.dao.PayDAO">
+	
+	
+	
+	<select id="admin_bookingList" parameterType="Page_BookingDTO" resultType="BookingDTO">
+		<![CDATA[	
+		 SELECT b.* FROM
+	   (SELECT rownum AS rm,  a.* FROM
+	   (SELECT * FROM booking ORDER BY booking_code DESC)a ORDER BY rownum)b
+	   WHERE b.rm >= #{startRow} and b.rm <= #{endRow}
+   ]]>
+		
+	</select>
+	
+	<select id="count_admin_bookingList" resultType="int">
+			
+		SELECT count(*) FROM booking
+		
+	</select>
+	
+	<resultMap id="useListMap" type="BookingDTO" autoMapping="true">
+			
+		<association property="user_PageDTO" javaType="main_PageImagesDTO">
+		
+			<result property="filepath" column="filepath"/>
+			<result property="filename" column="filename"/>
+			<result property="main_address" column="main_address"/>
+			
+		</association>
+		
+	</resultMap>
+	
+	<select id="user_bookingList" parameterType="Page_BookingDTO" resultMap="useListMap">
+		<![CDATA[	
+		
+		
+				SELECT b.*,
+			         i.filepath,
+			         i.filename,
+			         h.main_address
+			  FROM (SELECT rownum as rm, a.*
+			        FROM (SELECT * FROM booking b WHERE b.t_id = #{t_id} ORDER BY booking_code DESC) a) b
+			  JOIN main_host h ON b.main_code = h.main_code
+			  JOIN main_image i ON b.main_code = i.main_code
+			  WHERE b.rm >= #{startRow} AND b.rm <= #{endRow}
+			
+		
+		 ]]>
+		 </select>
+		 
+	
+	
+	
+	
+	<select id="count_user_bookingList" parameterType="int" resultType="int">
+			
+		SELECT count(*) FROM booking WHERE t_id = #{t_id} and booking_state = 1
+		
+	</select> 
+	
+	
+	
+<insert id="Insert_tossPayments" parameterType="BookingDTO">
+	
+		<selectKey keyProperty="booking_code" resultType="java.lang.Integer" order="AFTER">
+        	SELECT booking_code_seq.currval FROM DUAL
+    	</selectKey>
+		
+		INSERT INTO booking(
+		booking_code, booking_date, use_date, start_time, end_time
+		,cost,booking_state, t_id, main_code, provider, type) 
+		VALUES (
+		booking_code_seq.nextval,sysdate
+		,#{use_date, jdbcType=VARCHAR},#{start_time, jdbcType=VARCHAR},#{end_time, jdbcType=VARCHAR}
+		,#{cost, jdbcType=VARCHAR},#{booking_state, jdbcType=VARCHAR},
+		#{t_id, jdbcType=VARCHAR},
+		#{main_code, jdbcType=VARCHAR},
+		#{provider, jdbcType=VARCHAR},
+		#{type, jdbcType=VARCHAR}
+		)
+		
+
+	</insert>
+	
+	<insert id="Insert_Key_tossPayments" parameterType="Toss_PaymentsDTO">
+		
+		INSERT INTO 
+		payments_key(booking_code, payments_key, t_id)
+		VALUES(#{booking_code}, #{payments_key}, #{t_id})
+		
+	</insert>
+	
+	<insert id="kakao_Key" parameterType="KakaoPay_KeyDTO">
+		INSERT INTO kakaopay_key
+		VALUES(
+			#{booking_code},
+			#{cid},
+			#{tid},
+			#{cancel_amount},
+			#{cancel_tax_free_amount},
+			#{cancel_vat_amount},
+			sysdate
+			
+		)
+	</insert>
+	
+	
+	<select id="kakaoPay_Cencle" parameterType="int" resultType="KakaoPay_KeyDTO">
+		
+		
+		SELECT * FROM kakaopay_key WHERE booking_code = #{booking_code}
+		
+	</select>
+	
+	<update id = "bookingCancel" parameterType="int">
+		UPDATE booking 
+		SET booking_state = 3, cancle_date=sysdate
+		WHERE booking_code = #{booking_code}
+	</update>
+	
+	<select id="toss_payments_Cencle" parameterType="int" resultType="java.lang.String">
+		SELECT payments_key FROM payments_key WHERE booking_code = #{booking_code}
+	</select>
+	
+	
+	<select id="admin_userInfo" parameterType="Admin_UserInfoDTO" resultType="Admin_User_InfoDTO">
+		
+		SELECT b.* FROM
+		(SELECT rownum as rm , a.* FROM
+		(SELECT * FROM test_mem)a 
+		WHERE 1=1 
+		<if test="t_username != null and t_username != ''">
+      
+       	AND a.t_username LIKE '%' || #{t_username} || '%'  
+        </if> 
+		ORDER BY rownum)b
+	
+   		WHERE b.rm BETWEEN #{startRow} AND #{endRow}
+			
+	</select>
+	
+	<select id="admin_userInfo_count" parameterType="String" resultType="int">
+		
+		SELECT count(*) FROM test_mem
+		WHERE 1=1
+		<if test="t_username != null and t_username != ''">
+      
+       	AND t_username LIKE '%' || #{t_username} || '%'  
+        </if> 
+		
+		
+		
+	</select>
+	
+	<select id="booking_Time_Check" parameterType="Booking_Time_CheckDTO" resultType="Booking_Time_CheckDTO">
+		
+		SELECT start_time, end_time FROM booking 
+		WHERE main_code = #{main_code} AND use_date=#{use_date}
+		
+	</select>
+	
+	
+	<resultMap id="admin_Review_List" type="Admin_User_ReviewDTO">
+		
+		<id property="review_code" column="review_code"/>
+		<result property="rm" column="rm"/>
+		<result property="main_code" column="main_code"/>
+		<result property="t_id" column="t_id"/>
+		<result property="booking_code" column="booking_code"/>
+		<result property="content" column="content"/>
+		<result property="rating_value" column="rating_value"/>
+		<result property="regdate" column="regdate"/>
+		<result property="ref" column="ref"/>
+		<result property="re_step" column="re_step"/>
+		<result property="re_level" column="re_level"/>
+		
+		
+		<association property="user" javaType="User">
+		
+			<result property="t_username" column="t_username"/>
+			
+		</association>
+		
+	</resultMap>
+	
+	
+	
+	<select id="admin_Review_List" parameterType="Admin_UserInfoDTO" resultMap="admin_Review_List">
+		
+		 SELECT b.* FROM
+        (SELECT rownum as rm, a.* FROM 
+        (SELECT * FROM review a
+        JOIN test_mem b ON a.t_id = b.t_id
+        
+        ORDER BY a.review_code DESC)a
+        WHERE 1=1
+		<if test="content != null and content != ''">
+      
+       	AND a.content LIKE '%' || #{content} || '%'
+       	
+        </if> 
+        ORDER BY rownum)b
+        WHERE b.rm BETWEEN #{startRow} AND #{endRow}
+        
+		
+	</select>
+	
+	<select id="admin_Review_count" parameterType="String" resultType="int">
+		
+		SELECT count(*) FROM review
+		WHERE 1=1
+		<if test="content != null and content != ''">
+      
+       	AND content LIKE '%' || #{content} || '%'
+        </if>
+		
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,43 @@
+.page5 {
+  position: relative;
+  top: 0;
+  z-index: 5;
+  margin: 0;
+  width: 1900px;
+  margin-top: -0.2%;
+}
+.section5 {
+  background-image: url("../../img/page5.jpg");
+  height: 937px;
+  width: 1900px;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.tt3 {
+  position: absolute;
+  top: 55%;
+  left: 20%;
+  z-index: 13;
+  color: white;
+  font-size: 40px;
+  text-align: right;
+}
+
+.st3 {
+  position: absolute;
+  top: 65%;
+  left: 20%;
+  z-index: 13;
+  color: white;
+  font-size: 25px;
+}
+
+.arrow3 {
+  position: absolute;
+  top: 75%;
+  left: 49%;
+  z-index: 13;
+}

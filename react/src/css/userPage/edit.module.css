@@ -1,0 +1,93 @@
+.infoidBox {
+  height: 130px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.item {
+  min-width: 150px;
+  width: 150px;
+}
+
+.idInfo {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.infoImg {
+  width: 100px;
+  height: 100px;
+  margin-right: 60px;
+}
+
+.newpw {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.newpwch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.adBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.adBox > input {
+  width: 1135px;
+}
+
+.adBtn {
+  background-color: black;
+  color: white;
+  padding: 7px 10px;
+  border-radius: 15px;
+  margin-left: 5px;
+}
+
+.infoemail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 70px;
+}
+
+.phnum {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.infoBottom {
+  height: 450px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.infoEndBtn {
+  float: right;
+  margin-top: 20px;
+}
+
+.error {
+  float: right;
+  color: red;
+}
+
+.infoidtext {
+  border: none;
+  outline: none;
+}
+
+#invalid {
+  border: 1px solid red;
+}

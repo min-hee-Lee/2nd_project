@@ -1,0 +1,23 @@
+.CommentAll {
+  display: flex;
+  flex-direction: column;
+}
+
+.CommentAll form {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px 0 20px;
+}
+
+.CommentBtn {
+  margin: 15px 0 0 10px;
+}
+
+.formAll {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.EndBtn {
+  margin-top: 45px;
+}

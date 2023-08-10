@@ -1,0 +1,42 @@
+/* home.js의 Banner영역 css */
+
+.banner_inner {
+  display: flex;
+  width: 1900px;
+  height: 100%;
+  position: relative;
+  z-index: 99;
+}
+
+.banner_btn {
+  position: absolute;
+  top: 275px;
+  width: 100%;
+  max-width: 1900px;
+  z-index: 999;
+  height: 70px;
+  display: block;
+}
+
+.prev_btn {
+  float: left;
+  margin-left: 20px;
+}
+
+.next_btn {
+  float: right;
+  margin-right: 20px;
+}
+
+.banner_btn > button {
+  width: 70px;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: gray;
+}
+
+.banner_btn > button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
+}

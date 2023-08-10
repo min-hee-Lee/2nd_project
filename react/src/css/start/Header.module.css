@@ -1,0 +1,51 @@
+.header {
+  position: absolute;
+  z-index: 10;
+  top: 50px;
+  width: 500px;
+  height: 100px;
+  background-color: rgba(250, 235, 215, 0);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header a {
+  color: white;
+}
+
+.homecss {
+  position: relative;
+  top: 0;
+  left: 30%;
+}
+
+.aboutcss {
+  position: relative;
+  top: 750%;
+  left: -1%;
+}
+
+.log {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  right: -250%;
+}
+
+.nav_link {
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+}
+
+.logincss {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+.lb {
+  margin-left: 20px;
+}

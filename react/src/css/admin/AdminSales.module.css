@@ -1,0 +1,64 @@
+.main_inner {
+  max-width: 1400px;
+  min-height: 940px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 50px 0px;
+  text-align: Center;
+}
+
+/* 검색창 */
+.search {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.search input {
+  border-radius: 0;
+  height: 40px;
+  width: 500px;
+  text-align: center;
+  margin-left: 40px;
+}
+
+.btn_search {
+  background-color: transparent;
+  position: relative;
+  margin-left: 10px;
+}
+/* -------------------------------------- */
+/* 데이터 전체 */
+.container {
+  padding: 10px 0;
+}
+
+/* 각 체육관별 전체 */
+.group {
+  /* border: 1px solid blue; */
+  height: 100%;
+  padding: 10px 0;
+  display: flex;
+}
+
+.group > div:nth-child(1) {
+  font-size: 30px;
+  width: 160px;
+  height: 120px;
+  line-height: 120px;
+}
+
+.group > div:nth-child(2) {
+  width: 200px;
+}
+
+.group > div:nth-child(3) {
+  font-size: 20px;
+  padding: 0 20px;
+}
+
+.gymname {
+  text-align: left;
+}

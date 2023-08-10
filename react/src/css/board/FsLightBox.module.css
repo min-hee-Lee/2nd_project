@@ -1,0 +1,60 @@
+/* left 안에 FsLightBox 내용 */
+.wrap {
+  width: 680px;
+  height: 780px;
+  /* overflow: hidden; */
+}
+
+/* 대표 이미지 썸네일 ------------------------------------------ */
+
+.thumbnail {
+  width: 100%;
+  height: 480px;
+  margin: 0 auto;
+}
+
+.thumbnail > img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 작은 이미지 리스트 --------------------------------------- */
+.imgList {
+  height: 300px;
+  width: 100%;
+  padding: 40px 0 20px 0;
+}
+
+.imgBtn {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.imgBtn > button {
+  height: 30px;
+  width: 80px;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.smallImg {
+  display: flex;
+  width: 100%;
+  height: 180px;
+}
+
+.smallImg > button {
+  padding: 10px 15px;
+  width: 225px;
+  height: 150px;
+  background-color: transparent;
+}
+
+.smallImg > button > img {
+  width: 200px;
+  height: 100%;
+}

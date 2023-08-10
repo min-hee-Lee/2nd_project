@@ -1,0 +1,81 @@
+.page2 {
+  position: relative;
+  top: 0;
+  z-index: 2;
+  margin: 0;
+  max-width: 1900px;
+  height: 937px;
+  margin-left: 0;
+}
+
+.page2title {
+  position: absolute;
+  top: 5%;
+  left: 27%;
+  z-index: 9;
+  color: white;
+  font-size: 100px;
+}
+
+.page2sub {
+  position: absolute;
+  top: 19%;
+  left: 31.5%;
+  z-index: 9;
+  color: white;
+  font-size: 60px;
+}
+
+.quote1 {
+  position: absolute;
+  top: 30%;
+  left: 24%;
+  z-index: 9;
+  color: white;
+  font-size: 120px;
+}
+
+.reviewtext1 {
+  position: absolute;
+  top: 53%;
+  left: 20%;
+  z-index: 9;
+  color: white;
+  font-size: 20px;
+}
+
+.quote2 {
+  position: absolute;
+  top: 30%;
+  left: 49%;
+  z-index: 9;
+  color: white;
+  font-size: 120px;
+}
+
+.reviewtext2 {
+  position: absolute;
+  top: 53%;
+  left: 45%;
+  z-index: 9;
+  color: white;
+  font-size: 20px;
+}
+
+.quote3 {
+  position: absolute;
+  left: 34%;
+  top: -95%;
+  z-index: 3;
+  color: white;
+  font-size: 120px;
+}
+
+.reviewtext3 {
+  position: absolute;
+  top: 53%;
+  left: 70%;
+  z-index: 9;
+  color: white;
+  font-size: 20px;
+}

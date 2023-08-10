@@ -1,0 +1,44 @@
+.page4 {
+  position: relative;
+  z-index: 4;
+  margin: 0;
+  width: 1900px;
+  margin-left: 0;
+  margin-top: -0.25%;
+}
+
+.section4 {
+  background-image: url("../../img/page4.jpg");
+  height: 937px;
+  width: 1900px;
+  /* background-attachment: fixed; */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.tt2 {
+  position: absolute;
+  top: 60%;
+  right: 20%;
+  z-index: 12;
+  color: white;
+  font-size: 40px;
+  text-align: right;
+}
+
+.st2 {
+  position: absolute;
+  top: 70%;
+  right: 20%;
+  z-index: 12;
+  color: white;
+  font-size: 25px;
+}
+
+.arrow2 {
+  position: absolute;
+  top: 80%;
+  right: 23%;
+  z-index: 12;
+}

@@ -1,0 +1,14 @@
+.like {
+  width: 1100px;
+  height: 100%;
+  padding: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.group {
+  width: 350px;
+  height: 100%;
+  border: 1px solid blue;
+  display: block;
+}

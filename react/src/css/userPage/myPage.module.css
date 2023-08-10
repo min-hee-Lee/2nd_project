@@ -1,0 +1,66 @@
+.Title {
+  /* margin-bottom: 40px; */
+  font-size: 35px;
+  height: 60px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.subTitle {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.infoBox {
+  width: 1200px;
+  /* border: 1px solid black; */
+}
+
+.info {
+  width: 1200px;
+  height: 70px;
+  font-size: 13px;
+  /* background-color: rgb(200, 200, 200); */
+}
+
+th {
+  white-space: nowrap;
+  text-align: center; /* 텍스트 중앙 정렬 */
+  /* border-bottom: 1px solid rgb(200, 200, 200); */
+}
+
+td {
+  height: 80px;
+  text-align: center; /* 텍스트 중앙 정렬 */
+  border-bottom: 1px solid rgb(200, 200, 200);
+  /* margin-bottom: 10px !important; */
+  /* margin-top: 10px; */
+}
+
+.infopaydate {
+  padding: 26px;
+}
+
+.infotk {
+  padding: 26px;
+}
+
+.infodate {
+  padding: 26px;
+}
+
+.infopay {
+  padding: 26px;
+}
+
+.infotime {
+  padding: 26px;
+}
+
+.infopayT {
+  padding: 26px;
+}
+
+.inforefund {
+  padding: 26px;
+}

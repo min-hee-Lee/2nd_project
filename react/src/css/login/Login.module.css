@@ -1,0 +1,99 @@
+.login {
+  /* border: 1px solid lightgray;
+  border-radius: 10px; */
+  width: 800px;
+  height: 100%;
+  margin: 0 auto;
+  padding-top: 20px;
+  border: 3px solid lightgray;
+  border-radius: 40px;
+}
+
+.signBox {
+  padding-top: 20px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.signBox button {
+  background-color: transparent;
+}
+
+.signBox > div {
+  width: 120px;
+}
+
+.signBox > div:hover,
+.signBox button:hover {
+  font-weight: bold;
+}
+
+.other_login {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+}
+
+.other_login p {
+  position: relative;
+  line-height: 15px;
+  font-size: 18px;
+  color: gray;
+  font-family: "gm_b";
+}
+
+.other_login div {
+  width: 400px;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.other_login .btn img {
+  width: 300px;
+  height: 60px;
+}
+
+/* 비밀번호 찾기 Modal ------------------------- */
+.find {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px 20px;
+  border-radius: 30px;
+  background-color: white;
+}
+
+.find > button {
+  width: 100%;
+  text-align: right;
+  font-family: "gm_b";
+  font-size: 25px;
+  background-color: transparent;
+}
+
+.findBox {
+  padding: 20px 40px;
+  text-align: center;
+}
+
+.findBox form {
+  padding: 20px;
+}
+
+.form_item {
+  padding: 5px 10px;
+}
+
+.form_item input {
+  width: 300px;
+  height: 40px;
+  padding-left: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.form_btn {
+  padding-top: 20px;
+}

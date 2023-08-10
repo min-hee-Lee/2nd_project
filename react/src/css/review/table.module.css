@@ -1,0 +1,86 @@
+.All {
+  width: 1400px;
+}
+
+.reviewUser {
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 10px;
+}
+.reviewInfoBox {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+.reviewInfo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.num {
+  font-size: 10px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.star {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.id {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.rd {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.md {
+  margin-left: 10px;
+  margin-right: 730px;
+}
+.reviewMainBox {
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.reviewMain {
+  margin: 20px;
+}
+
+.reviewImgBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.reviewImg {
+}
+
+.reviewBottomBtn {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.reviewPlus {
+  /* border: 1px solid rgb(200, 200, 200); */
+  background-color: rgb(200, 200, 200);
+  border-radius: 10px;
+  max-width: 1400px;
+}
+
+.reviewManager {
+  margin: 20px;
+  max-width: 1400px;
+}
+
+/* .reviewBottomBtn {
+  display: flex;
+  align-items: center;
+} */

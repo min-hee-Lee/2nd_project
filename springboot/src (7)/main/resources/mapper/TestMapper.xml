@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.example.shop.webCrawling.dao.Test_DAO">
+
+
+
+
+	<!-- 회원가입   TABLE :  main_images  main_sub_banner 바꿔가면서 사용-->
+	<insert id="main_sub_banner" parameterType="ImagesDTO">
+	<![CDATA[
+		INSERT INTO main_sub_banner(main_code, filename, filepath)
+		VALUES(#{main_code}, #{filename}, #{filepath})
+	]]>
+	</insert>
+	
+	<!-- info_detail -->
+	<insert id="info_detail" parameterType="Info_detailDTO">
+	<![CDATA[
+		INSERT INTO main_info(main_code, info_detail)
+		VALUES(#{main_code}, #{info_detail, jdbcType=VARCHAR})
+	]]>
+	</insert>
+	
+	
+	<!-- main_host 위치-->
+	<insert id="main_host" parameterType="Main_hostDTO">
+	
+		INSERT INTO main_host(main_code,main_name,main_address,main_comment,latitude,longitude,main_logo)
+		VALUES(
+		#{main_code}, 
+		#{main_name},
+		#{main_address},
+		#{main_comment},
+		#{latitude},
+		#{longitude},
+		#{main_logo}
+		)
+	
+	</insert>
+	
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

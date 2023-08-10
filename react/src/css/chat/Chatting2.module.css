@@ -1,0 +1,307 @@
+/* 전체 틀 -------------------------------------------------------------- */
+.main_inner {
+  max-width: 1400px;
+  height: 100%;
+  min-height: 800px;
+  margin: 0 auto;
+  display: flex;
+  padding: 20px 0 100px;
+}
+
+/* 채팅 화면 (왼쪽) ---------------------------------------------------- */
+.chatLeft {
+  width: 700px;
+  /* border: 1px solid black; */
+}
+
+.chat_wrap {
+  width: 600px;
+  background-color: #000000;
+  margin: auto;
+  margin-top: 20px;
+  padding: 20px 10px;
+  border-radius: 20px;
+  box-shadow: 41px 41px 82px #c9c9c9, -41px -41px 82px #ffffff;
+}
+
+.chat {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.chat .dialog {
+  width: 100%;
+  height: 500px;
+  overflow-y: auto;
+  position: relative;
+  border-radius: 20px 20px 20px 20px;
+  background-color: #fefefe;
+}
+
+/* scrollbar 두께, 색상 */
+.chat .dialog::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 10px;
+  backdrop-filter: blur(60px);
+}
+/* scrollbar */
+.chat .dialog::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: gray;
+}
+
+.chat .dialog .dialog_board {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.chat div {
+  width: 60%;
+  display: block;
+  padding: 5px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.chat div.me {
+  background-color: #eafaf1;
+  margin: 0px 0px 10px 40%;
+}
+
+.chat div.other {
+  background-color: #fef9e7;
+  margin: 10px 0px 10px 0;
+}
+
+.chat .divSender {
+  margin-top: 20px;
+  padding-bottom: 0;
+  width: 100%;
+}
+
+.divSender label {
+  height: 40px;
+  line-height: 40px;
+}
+
+.divSender label {
+  display: inline-block;
+  /* width: 50px; */
+  vertical-align: bottom;
+  text-align: center;
+  padding-right: 10px;
+  color: white;
+}
+
+.divSender input[type="text"] {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  width: calc(100% - 60px - 60px - 3px);
+  height: 30px;
+  /* padding-left: 15px; */
+  margin-right: 3px;
+}
+
+.chat .divMessage {
+  width: 100%;
+}
+
+.divMessage label {
+  line-height: 70px;
+  padding-right: 10px;
+}
+
+.btnJoin {
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  vertical-align: bottom;
+  /* border: 1px solid #dcdcdc; */
+  background-color: rgb(90, 90, 90);
+  color: white;
+  font: re;
+  border-radius: 5px;
+}
+
+.messageInput {
+  width: calc(100% - 60px - 60px - 3px);
+  height: 70px;
+  margin-right: 3px;
+  display: inline-block;
+  resize: none;
+  border: 1px solid #dcdcdc;
+  background-color: #fff;
+  box-sizing: border-box;
+  vertical-align: bottom;
+  border-radius: 5px;
+}
+
+.btnSend {
+  display: inline-block;
+  width: 60px;
+  height: 70px;
+  vertical-align: bottom;
+  /* border: 1px solid #dcdcdc; */
+  background-color: rgb(90, 90, 90);
+  color: white;
+  border-radius: 5px;
+}
+
+.date {
+  color: #a5a5a5;
+  padding-left: 10px;
+  font-size: 0.9rem;
+}
+
+.chatTitleBox {
+  display: flex;
+  width: auto;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+}
+
+.chatTitleBox > span {
+  height: 60px;
+  line-height: 65px;
+  font-size: 25px;
+}
+
+.btnBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  height: 100px;
+  /* border: 1px solid rgb(0, 0, 0); */
+  border-radius: 20px;
+  margin: auto;
+  /* margin-top: 20px; */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.btnImg {
+  /* background-color: #a5a5a5; */
+  height: 70px;
+  width: 600px;
+}
+
+.chatImage {
+  height: 60px;
+  width: 60px;
+  margin: 7.5px;
+}
+
+.chatBtn {
+  /* border: 1px solid pink; */
+  background-color: transparent;
+  color: #000000;
+  width: 70px;
+  height: 20px;
+  border-radius: 20px;
+  margin: 2.5px;
+  /* margin-top: 2px; */
+}
+
+.chatBtn img {
+  width: 75px;
+  height: 70px;
+}
+
+/* ---------------------------------------------------------------- */
+.rightMain {
+  /* border-left: 1px solid rgb(200, 200, 200); */
+  width: 700px;
+  margin: auto;
+}
+
+/* 검색창 ---------------------------------------------- */
+.search {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  height: 80px;
+  width: 600px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.search > input {
+  height: 40px;
+  width: 450px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.place {
+  width: 600px;
+  height: 800px;
+  margin: auto;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+/* ------------------------------------------------------------- */
+.listAll {
+  margin-top: 40px;
+  border: 1px solid lightgray;
+  height: 750px;
+  overflow-y: scroll;
+}
+
+.listAll::-webkit-scrollbar {
+  width: 10px;
+  backdrop-filter: blur(60px);
+}
+.listAll::-webkit-scrollbar-thumb {
+  background-color: gray;
+}
+
+.size .crtd {
+  padding: 5px;
+  text-align: center;
+}
+
+/* ----------------------------------------------------------------- */
+.pImg {
+  height: 80px;
+  width: 100px;
+  margin-right: 10px;
+  background-color: #a5a5a5;
+  border-radius: 20px;
+}
+
+.pText {
+  height: 80px;
+  width: 490px;
+  background-color: #a5a5a5;
+  border-radius: 20px;
+}
+
+.chatLeft {
+  flex: 1;
+}
+
+.chatRight {
+  flex: 1;
+}
+
+.stickyNavbar {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  /* 네비게이션 바의 높이를 설정하고 필요에 따라 다른 스타일을 추가할 수 있습니다. */
+}
+
+.crtd {
+  padding: 5px;
+}

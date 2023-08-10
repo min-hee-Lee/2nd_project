@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Dao 메소드명과 id는 같게 하는게 좋음--> 
+<mapper namespace="com.example.shop.wishList.dao.WishDAO">
+	
+	
+	<select id="CheckWish" parameterType="WishDTO" resultType="int">
+		
+		SELECT count(*) FROM wishList 
+		WHERE main_code = #{main_code} and t_id = #{t_id}
+	</select>
+	
+	
+	
+    <delete id="delete_wish" parameterType="WishDTO">
+		
+		DELETE FROM wishList
+		WHERE main_code = #{main_code} and t_id =#{t_id}
+		
+	</delete>
+	
+	<insert id="insert_wish">
+		
+		INSERT INTO wishList(wish_code,t_id,main_code)
+		VALUES (wish_code_seq.nextval, #{t_id} ,#{main_code})
+		
+	</insert>
+	
+	<select id="user_wishList_count" parameterType="int" resultType="int">
+		
+		SELECT count(*) FROM wishList WHERE t_id = #{t_id}
+		
+	</select>
+	
+	
+	<select id="user_wish_List" parameterType="user_WishListDTO" resultType="main_images_UserDTO">
+		<![CDATA[
+		
+		SELECT d.* FROM
+		(SELECT rownum AS rm, c.*,e.t_id, e.wish_code FROM
+		(SELECT b.main_code, b.filepath, b.filename, b.main_address, b.title, b.cost, b.time_about,
+		       round(AVG(NVL(d.rating_value,0)), 2) as avg_rating, count(d.rating_value) as count_rating
+		FROM
+		(SELECT a.*
+		FROM(SELECT a.main_code, a.filepath, a.filename, 
+		b.main_address, 
+		c.title, c.cost, c.time_about
+		FROM main_image a
+		JOIN main_host b ON a.main_code = b.main_code
+		JOIN (
+		SELECT * FROM
+		(SELECT a.*, ROW_NUMBER() OVER (PARTITION BY a.main_code ORDER BY a.main_code) as RN
+		FROM MAIN_SUB_PLACE a) t
+		WHERE t.RN=1) c ON a.main_code = c.main_code)a)b
+		LEFT JOIN (SELECT * FROM review WHERE re_step=0) d ON b.main_code = d.main_code
+		GROUP BY b.main_code, b.filepath, b.filename, b.main_address, b.title, b.cost, b.time_about
+		ORDER BY b.main_code)c 
+        JOIN wishList e ON c.main_code = e.main_code
+        WHERE t_id = #{t_id}
+        ORDER BY rownum)d
+		WHERE d.rm >= #{startRow} AND d.rm <= #{endRow}
+				
+	
+		]]>
+	</select>
+	
+	
+	<!--<resultMap id="user_reviewListMap" type="User_ReviewDTO">
+		
+
+		
+		<collection property="imagesDTO" ofType="Review_imagesDTO">
+	        <result property="review_filename" column="review_filename"/>
+	        <result property="review_filepath" column="review_filepath"/>
+	    </collection>
+		
+		
+	</resultMap>-->
+	
+	
+	<select id="user_reviewList" parameterType="user_WishListDTO" resultType="User_ReviewDTO">
+		
+		<![CDATA[ 
+			
+			
+			    SELECT b.* FROM
+			    (SELECT rownum as rm, a.* FROM
+			  (SELECT *
+			  FROM review a 
+			  JOIN main_image b ON a.main_code = b.main_code
+			   WHERE a.t_id= #{t_id})a)b
+			  WHERE b.rm >=#{startRow} and b.rm<=#{endRow}
+		 ]]>
+		
+	</select>
+	
+	<select id="user_reviewList_count" parameterType="int" resultType="int">
+		
+		SELECT count(*) FROM review WHERE t_id = #{t_id}
+		
+	</select>
+	
+		
+	<select id="user_reviewImagesSelectOne" parameterType="int" resultType="Review_imagesDTO">
+		
+		
+		SELECT filepath FROM review_image WHERE review_code = #{review_code}
+		
+		
+	</select>
+	
+	
+	<resultMap id="admin_salesMap" type="Admin_Sales_pageDTO" autoMapping="true">
+		
+		<id property="main_code" column="main_code" />
+	   
+	    <collection property="month_SalesDTO" ofType="Month_SalesDTO">
+	        <result property="total_sales" column="total_sales"/>
+	        <result property="month" column="month"/>
+	        <result property="sales_diff_percent" column="sales_diff_percent"/>
+	        <result property="sales_diff" column="sales_diff"/>
+	    </collection>
+	</resultMap>
+	
+
+	
+	
+	<select id="admin_sales" parameterType="New_User_WishListDTO" resultMap="admin_salesMap">
+		
+		
+		
+		   SELECT b.* FROM
+  (SELECT rownum as rm, a.*,b.filename, b.filepath FROM 
+  (SELECT 
+    main_code,
+    yearly_sales,
+    DENSE_RANK() OVER (ORDER BY yearly_sales DESC) as sales_rank,
+    total_sales,
+    month,
+    year,
+    sales_diff_percent,
+    sales_diff
+   
+FROM (
+    SELECT 
+        b.main_code,
+        SUM(b.cost) as total_sales,
+        TO_CHAR(b.booking_date, 'YYYY-MM') as month,
+        TO_CHAR(b.booking_date, 'YYYY') as year,
+        CASE 
+            WHEN LAG(SUM(b.cost), 1, 0) OVER (PARTITION BY b.main_code ORDER BY TO_CHAR(b.booking_date, 'YYYY-MM')) = 0 THEN 0
+            ELSE ROUND(((SUM(b.cost) - LAG(SUM(b.cost), 1, 0) OVER (PARTITION BY b.main_code ORDER BY TO_CHAR(b.booking_date, 'YYYY-MM'))) / LAG(SUM(b.cost), 1, 0) OVER (PARTITION BY b.main_code ORDER BY TO_CHAR(b.booking_date, 'YYYY-MM'))) * 100, 2)
+        END AS sales_diff_percent,
+        SUM(b.cost) - LAG(SUM(b.cost), 1, 0) OVER (PARTITION BY b.main_code ORDER BY TO_CHAR(b.booking_date, 'YYYY-MM')) as sales_diff,
+        SUM(SUM(b.cost)) OVER (PARTITION BY b.main_code, TO_CHAR(b.booking_date, 'YYYY')) as yearly_sales
+    FROM 
+        booking b 
+    WHERE 
+        b.booking_date BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-12-31', 'YYYY-MM-DD')
+    GROUP BY 
+        b.main_code,
+        TO_CHAR(b.booking_date, 'YYYY-MM'),
+        TO_CHAR(b.booking_date, 'YYYY')
+)
+	
+ORDER BY 
+    month,
+    main_code)a 
+     JOIN main_image b ON a.main_code = b.main_code
+      WHERE 1=1
+   	 <if test="filename != null and filename != ''">
+      
+       AND b.filename LIKE '%' || #{filename} || '%'  
+     
+    	</if> 
+     
+   ORDER BY rownum)b
+   
+   			WHERE b.rm BETWEEN #{startRow} AND #{endRow}
+		
+	</select>
+	
+	
+	
+	<select id="admin_sales_count" parameterType="int" resultType="int">
+		
+		   SELECT COUNT(*) 
+			FROM (
+			    SELECT main_code, SUM(cost) as total_sales
+			    FROM booking
+			    GROUP BY main_code
+			) b  
+			<if test="main_code != 0 and main_code != ''">
+       			WHERE main_code = #{main_code}
+  		  	</if> 
+		
+		  
+		
+	</select>
+	
+	<select id="wish_user" parameterType="int" resultType="WishDTO">
+		
+		SELECT * FROM wishList WHERE t_id =#{t_id}
+		
+	</select>
+
+
+</mapper>
